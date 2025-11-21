@@ -8,25 +8,30 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class OpenAIChatCompletionToolMessage implements OpenAIChatCompletionMessage {
 
-  private final String role = "tool";
+  private final String name;
+  @JsonProperty("tool_call_id")
+  private final String callId;
   private final String content;
-  private final String toolCallId;
 
-  public OpenAIChatCompletionToolMessage(String content, String toolCallId) {
+  public OpenAIChatCompletionToolMessage(String callId, String name, String content) {
+    this.callId = callId;
+    this.name = name;
     this.content = content;
-    this.toolCallId = toolCallId;
   }
 
-  public String getRole() {
-    return role;
+  public String getCallId() {
+    return callId;
+  }
+
+  public String getName() {
+    return name;
   }
 
   public String getContent() {
     return content;
   }
 
-  @JsonProperty("tool_call_id")
-  public String getToolCallId() {
-    return toolCallId;
+  public String getRole() {
+    return "tool";
   }
 }

@@ -247,18 +247,34 @@ public class LlamaClientTest extends BaseTest {
         new ToolFunctionResponse("get_weather", "{\"location\": \"New York\"}"));
     var toolCallMessage = new OpenAIChatCompletionAssistantMessage(null, List.of(toolCall));
     messages.add(toolCallMessage);
-    messages.add(new OpenAIChatCompletionToolMessage("72F and sunny", "call_123"));
-
+    messages.add(new OpenAIChatCompletionToolMessage(
+        "call_123",
+        "72F and sunny",
+        "function_call_output"));
     expectLlama((BasicHttpExchange) request -> {
       assertThat(request.getUri().getPath()).isEqualTo("/v1/chat/completions");
       assertThat(request.getMethod()).isEqualTo("POST");
       var requestMessages = (List<Map<String, Object>>) request.getBody().get("messages");
       assertThat(requestMessages).hasSize(4);
+      assertThat(requestMessages.get(0))
+          .extracting("role", "content")
+          .containsExactly("user", "What's the weather in New York?");
+      assertThat(requestMessages.get(1))
+          .extracting("role", "content")
+          .containsExactly("assistant", "I'll check the weather for you.");
+      assertThat(requestMessages.get(2))
+          .extracting("role", "tool_calls")
+          .containsExactly("assistant", List.of(Map.of(
+              "index", 0,
+              "id", "call_123",
+              "type", "function",
+              "function", Map.of(
+                  "name", "get_weather",
+                  "arguments", "{\"location\": \"New York\"}"
+              ))));
       assertThat(requestMessages.get(3))
-          .containsEntry("role", "tool")
-          .containsEntry("content", "72F and sunny")
-          .containsEntry("tool_call_id", "call_123");
-
+          .extracting("role", "tool_call_id", "name", "content")
+          .containsExactly("tool", "call_123", "72F and sunny", "function_call_output");
       return new ResponseEntity(jsonMapResponse(
           e("choices", List.of(Map.of(
               "index", 0,
