@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.56] - 2025-11-21
+
+### Refactored
+
+- OpenAI tool message response structure
+
 ## [0.8.55] - 2025-10-28
 
 ### Removed
@@ -452,7 +458,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Upgrade OpenAI chat models: **gpt-4-0125-preview**, **gpt-3.5-turbo-0125**
 
-[0.8.55]: https://github.com/carlrobertoh/llm-client/compare/b94518600afc86ca7e307f6128a1d914a73cfe92...HEAD
+[0.8.56]: https://github.com/carlrobertoh/llm-client/compare/08ef0d5061bc76ba2e9999eebb1b513920b4bd83...HEAD
+[0.8.55]: https://github.com/carlrobertoh/llm-client/compare/b94518600afc86ca7e307f6128a1d914a73cfe92...08ef0d5061bc76ba2e9999eebb1b513920b4bd83
 [0.8.54]: https://github.com/carlrobertoh/llm-client/compare/46119cc357255fc400ec1c2aef77abc1b5a63d4e...b94518600afc86ca7e307f6128a1d914a73cfe92
 [0.8.53]: https://github.com/carlrobertoh/llm-client/compare/eb3b9ad24cc38a7621209a2ca914e48f1e410683...46119cc357255fc400ec1c2aef77abc1b5a63d4e
 [0.8.52]: https://github.com/carlrobertoh/llm-client/compare/73cd0d21eb6defcc5e54d94a88ab07e8e4136c4a...eb3b9ad24cc38a7621209a2ca914e48f1e410683
